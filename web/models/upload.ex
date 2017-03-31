@@ -3,7 +3,7 @@ defmodule PhoUpload.Upload do
 
   schema "uploads" do
     field :username, :string
-    has_many :documents, PhoUpload.Upload
+    has_many :documents, PhoUpload.Document
 
     timestamps()
   end
@@ -16,4 +16,9 @@ defmodule PhoUpload.Upload do
     |> cast(params, [:username])
     |> validate_required([:username])
   end
+
+  def with_documents(query) do
+    from q in query, preload: [:documents]
+  end
+
 end

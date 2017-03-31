@@ -8,5 +8,11 @@ defmodule PhoUpload.Router do
   scope "/uploads", PhoUpload do
     pipe_through :api
     post "/", UploadController, :new
+    get "/:id", UploadController, :get
+  end
+
+  scope "/documents", PhoUpload do
+    pipe_through :api
+    get "/:id", DocumentController, :get
   end
 end

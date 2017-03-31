@@ -31,4 +31,11 @@ defmodule PhoUpload.Document do
     end
   end
 
+  def with_upload(query, username) do
+    from q in query,
+      join: u in assoc(q, :upload),
+      where: u.username == ^username,
+      preload: [upload: u]
+  end
+
 end
