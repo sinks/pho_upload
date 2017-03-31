@@ -3,17 +3,10 @@ defmodule PhoUpload.UploadView do
 
   import PhoUpload.Router.Helpers
 
-  def render("new.json", %{} = data) do
-     documents = Enum.map(data.documents,
-      fn (doc) -> %{ self: doc_url(doc), name: doc.name } end
-      )
+  def render("new.json", %{documents: documents, id: id}) do
     %{
-       self: upload_url(PhoUpload.Endpoint, :get, data.id),
-       documents: documents
+       self: upload_url(PhoUpload.Endpoint, :get, id),
+       documents: render_many(documents, PhoUpload.DocumentView, "self.json")
      }
-  end
-
-  def doc_url(doc) do
-    document_url(PhoUpload.Endpoint, :get, doc.id)
   end
 end
